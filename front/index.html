@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,9 +25,8 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json()) // Traitement de la réponse comme JSON
+            .then(response => response.json()) 
             .then(data => {
-                // Maintenant, data contient le contenu du fichier CSV sous forme de texte
                 document.getElementById('uploadResult').innerText = data;
             })
             .catch(error => console.error('Error uploading file:', error));

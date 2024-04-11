@@ -28,3 +28,4 @@ C:\Users\Steam\Desktop\b3\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Steam\Desktop\b3\obj\Debug\net8.0\b3.csproj.AssemblyReference.cache
 C:\Users\Steam\Desktop\b3\obj\Debug\net8.0\b3.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Steam\Desktop\b3\obj\Debug\net8.0\b3.csproj.Up2Date
+C:\Users\Steam\Desktop\b3\obj\Debug\net8.0\b3.sourcelink.json
