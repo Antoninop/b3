@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Résultats des étudiants</title>
+    <title>Antonino</title>
     <style>
         .hidden {
             display: none;
@@ -11,13 +11,13 @@
     </style>
 </head>
 <body>
-
+    <br>
     <form id="uploadForm" enctype="multipart/form-data">
         <input type="file" name="file" id="fileInput" accept=".csv">
         <input type="submit" value="Envoyer">
-    </form><br><br><br>
+    </form><br><br><br> 
 
-    <table border="1">
+    <table border="1" id="resultTable" class="hidden">
         <thead>
             <tr>
                 <th>Nom</th>
@@ -48,7 +48,16 @@
 
         function displayData(data) {
             const tableBody = document.getElementById('dataTable');
+            const table = document.getElementById('resultTable');
+
             tableBody.innerHTML = ''; 
+
+            if (data.length === 0) {
+                table.classList.add('hidden');
+                return;
+            }
+
+            table.classList.remove('hidden');
 
             data.forEach(entry => {
                 const newRow = document.createElement('tr');
