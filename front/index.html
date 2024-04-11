@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Résultats des étudiants</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
     <form id="uploadForm" enctype="multipart/form-data">
         <input type="file" name="file" id="fileInput" accept=".csv">
         <input type="submit" value="Envoyer">
-    </form>
+    </form><br><br><br>
 
     <table border="1">
         <thead>
@@ -43,12 +48,12 @@
 
         function displayData(data) {
             const tableBody = document.getElementById('dataTable');
-            tableBody.innerHTML = ''; // Clear the table w<hen new data is loaded
+            tableBody.innerHTML = ''; 
 
             data.forEach(entry => {
                 const newRow = document.createElement('tr');
                 const average = calculateAverage(entry.notes);
-                newRow.innerHTML = `<td>${entry.nom}</td><td>${entry.prénom}</td><td>${entry.notes.join(', ')}</td><td>${average}</td>`;
+                newRow.innerHTML = `<td>${entry.nom}</td><td>${entry.prénom}</td><td><button onclick="toggleNotes(this)">Afficher les notes</button><ul class="hidden">${entry.notes.map(note => `<li>${note}</li>`).join('')}</ul></td><td>${average}</td>`;
                 tableBody.appendChild(newRow);
             });
         }
@@ -56,6 +61,11 @@
         function calculateAverage(notes) {
             const sum = notes.reduce((total, current) => total + current, 0);
             return (sum / notes.length).toFixed(2); 
+        }
+
+        function toggleNotes(button) {
+            const notesList = button.nextElementSibling;
+            notesList.classList.toggle('hidden');
         }
     </script>
 </body>
