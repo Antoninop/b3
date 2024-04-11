@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endpoint Example</title>
+</head>
+
+<body>
+    <h1>Upload Example</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" id="file">
+        <input type="submit" value="Upload">
+    </form>
+    
+    <div id="uploadResult"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData();
+            formData.append('file', document.getElementById('file').files[0]);
+
+            fetch('http://localhost:5000/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) // Traitement de la réponse comme JSON
+            .then(data => {
+                // Maintenant, data contient le contenu du fichier CSV sous forme de texte
+                document.getElementById('uploadResult').innerText = data;
+            })
+            .catch(error => console.error('Error uploading file:', error));
+        });
+
+    </script>
+</body>
+</html>
