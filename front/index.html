@@ -3,35 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Endpoint Example</title>
+    <title>Résultats des étudiants</title>
 </head>
-
 <body>
-    <h1>Upload Example</h1>
+
     <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" name="file" id="file">
-        <input type="submit" value="Upload">
+        <input type="file" name="file" id="fileInput" accept=".csv">
+        <input type="submit" value="Envoyer">
     </form>
-    
-    <div id="uploadResult"></div>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Notes</th>
+                <th>Moyenne</th>
+            </tr>
+        </thead>
+        <tbody id="dataTable"></tbody>
+    </table>
 
     <script>
         document.getElementById('uploadForm').addEventListener('submit', function(event) {
             event.preventDefault();
             var formData = new FormData();
-            formData.append('file', document.getElementById('file').files[0]);
+            formData.append('file', document.getElementById('fileInput').files[0]);
 
             fetch('http://localhost:5000/upload', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json()) 
+            .then(response => response.json())
             .then(data => {
-                document.getElementById('uploadResult').innerText = data;
+                displayData(data);
             })
-            .catch(error => console.error('Error uploading file:', error));
+            .catch(error => console.error('Erreur:', error));
         });
 
+        function displayData(data) {
+            const tableBody = document.getElementById('dataTable');
+            tableBody.innerHTML = ''; // Clear the table w<hen new data is loaded
+
+            data.forEach(entry => {
+                const newRow = document.createElement('tr');
+                const average = calculateAverage(entry.notes);
+                newRow.innerHTML = `<td>${entry.nom}</td><td>${entry.prénom}</td><td>${entry.notes.join(', ')}</td><td>${average}</td>`;
+                tableBody.appendChild(newRow);
+            });
+        }
+
+        function calculateAverage(notes) {
+            const sum = notes.reduce((total, current) => total + current, 0);
+            return (sum / notes.length).toFixed(2); 
+        }
     </script>
 </body>
 </html>
